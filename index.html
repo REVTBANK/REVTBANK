@@ -192,6 +192,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js" defer></script>
 <script>
 /* ===================== I18N ===================== */
 const I18N = {
@@ -230,7 +231,7 @@ const I18N = {
     step6Text:"Après vérification de REVTBANK vous allez recevoir un message par email qui vous annoncera si votre compte est activé.",
     errFillAll:"Merci de remplir tous les champs.", errEmailInvalid:"Adresse email invalide.",
     errEmailExists:"Un compte existe déjà avec cet email.", errPasswordLen:"Le mot de passe doit contenir au moins 6 caractères.",
-    errPasswordMismatch:"Les mots de passe ne correspondent pas.", errSelfieRequired:"Merci d'ajouter un selfie pour continuer.",
+    errPasswordMismatch:"Les mots de passe ne correspondent pas.", errSelfieRequired:"Merci d'ajouter un selfie pour continuer.", errSelfieNoFace:"Aucun visage détecté sur cette photo. Merci de reprendre un vrai selfie de votre visage.", selfieChecking:"Vérification du selfie en cours…",
     errIdRequired:"Merci d'ajouter le recto et le verso de votre pièce d'identité pour continuer.",
     virTitle:"Virement instantané ou SEPA", virTypeLabel:"Type de virement", virTypeInstant:"Instantané", virTypeSepa:"SEPA",
     virBenefLabel:"Bénéficiaire", virBenefChoose:"Choisir un bénéficiaire", virMontantLabel:"Montant (€)",
@@ -271,6 +272,7 @@ const I18N = {
     profileAdminActionsTitle:"Actions administrateur", profileClearHistoryBtn:"Vider l'historique de ce compte",
     profileClearInfosBtn:"Supprimer les informations (KYC) de ce compte", profileBlockBtn:"Bloquer le compte",
     profileUnblockBtn:"Débloquer le compte", profileDeleteBtn:"Supprimer définitivement le compte",
+    profileResetPassBtn:"Réinitialiser le mot de passe", resetPassPromptTitle:"Nouveau mot de passe pour", resetPassPromptMsg:"Saisissez le nouveau mot de passe à communiquer à ce membre (6 caractères minimum) :", resetPassTooShort:"Mot de passe trop court (6 caractères minimum).", resetPassDone:"Nouveau mot de passe défini. Communiquez-le au membre : ",
     transferDoneTitle:"Virement effectué", transferDoneText:"Le virement a bien été crédité sur le compte du bénéficiaire.",
     txInitialDeposit:"Dépôt initial", txSentTo:"Virement envoyé — {name}", txReceivedFrom:"Virement reçu — {name}",
     txReceived:"Virement reçu", txTransferPrefix:"Virement", txTowards:"vers", txRefundRefused:"Remboursement — virement refusée",
@@ -319,7 +321,7 @@ const I18N = {
     step6Text:"After verification by REVTBANK you will receive an email letting you know whether your account has been activated.",
     errFillAll:"Please fill in all fields.", errEmailInvalid:"Invalid email address.",
     errEmailExists:"An account already exists with this email.", errPasswordLen:"Password must be at least 6 characters.",
-    errPasswordMismatch:"Passwords do not match.", errSelfieRequired:"Please add a selfie to continue.",
+    errPasswordMismatch:"Passwords do not match.", errSelfieRequired:"Please add a selfie to continue.", errSelfieNoFace:"No face detected in this photo. Please retake a real selfie of your face.", selfieChecking:"Checking selfie…",
     errIdRequired:"Please add the front and back of your ID document to continue.",
     virTitle:"Instant or SEPA transfer", virTypeLabel:"Transfer type", virTypeInstant:"Instant", virTypeSepa:"SEPA",
     virBenefLabel:"Beneficiary", virBenefChoose:"Choose a beneficiary", virMontantLabel:"Amount (€)",
@@ -360,6 +362,7 @@ const I18N = {
     profileAdminActionsTitle:"Administrator actions", profileClearHistoryBtn:"Clear this account's history",
     profileClearInfosBtn:"Delete this account's information (KYC)", profileBlockBtn:"Block account",
     profileUnblockBtn:"Unblock account", profileDeleteBtn:"Permanently delete account",
+    profileResetPassBtn:"Reset password", resetPassPromptTitle:"New password for", resetPassPromptMsg:"Enter the new password to give this member (minimum 6 characters):", resetPassTooShort:"Password too short (minimum 6 characters).", resetPassDone:"New password set. Give it to the member: ",
     transferDoneTitle:"Transfer completed", transferDoneText:"The transfer has been credited to the beneficiary's account.",
     txInitialDeposit:"Initial deposit", txSentTo:"Transfer sent — {name}", txReceivedFrom:"Transfer received — {name}",
     txReceived:"Transfer received", txTransferPrefix:"Transfer", txTowards:"to", txRefundRefused:"Refund — transfer rejected",
@@ -408,7 +411,7 @@ const I18N = {
     step6Text:"Tras la verificación de REVTBANK recibirás un correo indicándote si tu cuenta ha sido activada.",
     errFillAll:"Por favor completa todos los campos.", errEmailInvalid:"Correo electrónico inválido.",
     errEmailExists:"Ya existe una cuenta con este correo.", errPasswordLen:"La contraseña debe tener al menos 6 caracteres.",
-    errPasswordMismatch:"Las contraseñas no coinciden.", errSelfieRequired:"Añade un selfie para continuar.",
+    errPasswordMismatch:"Las contraseñas no coinciden.", errSelfieRequired:"Añade un selfie para continuar.", errSelfieNoFace:"No se detectó ningún rostro en esta foto. Vuelve a tomar un selfie real de tu cara.", selfieChecking:"Comprobando el selfie…",
     errIdRequired:"Añade el anverso y el reverso de tu documento para continuar.",
     virTitle:"Transferencia instantánea o SEPA", virTypeLabel:"Tipo de transferencia", virTypeInstant:"Instantánea", virTypeSepa:"SEPA",
     virBenefLabel:"Beneficiario", virBenefChoose:"Elige un beneficiario", virMontantLabel:"Importe (€)",
@@ -449,6 +452,7 @@ const I18N = {
     profileAdminActionsTitle:"Acciones de administrador", profileClearHistoryBtn:"Vaciar el historial de esta cuenta",
     profileClearInfosBtn:"Eliminar la información (KYC) de esta cuenta", profileBlockBtn:"Bloquear cuenta",
     profileUnblockBtn:"Desbloquear cuenta", profileDeleteBtn:"Eliminar cuenta permanentemente",
+    profileResetPassBtn:"Restablecer contraseña", resetPassPromptTitle:"Nueva contraseña para", resetPassPromptMsg:"Introduce la nueva contraseña para este miembro (mínimo 6 caracteres):", resetPassTooShort:"Contraseña demasiado corta (mínimo 6 caracteres).", resetPassDone:"Nueva contraseña definida. Entrégasela al miembro: ",
     transferDoneTitle:"Transferencia realizada", transferDoneText:"La transferencia se ha acreditado en la cuenta del beneficiario.",
     txInitialDeposit:"Depósito inicial", txSentTo:"Transferencia enviada — {name}", txReceivedFrom:"Transferencia recibida — {name}",
     txReceived:"Transferencia recibida", txTransferPrefix:"Transferencia", txTowards:"hacia", txRefundRefused:"Reembolso — transferencia rechazada",
@@ -497,7 +501,7 @@ const I18N = {
     step6Text:"Nach der Überprüfung durch REVTBANK erhalten Sie eine E-Mail, ob Ihr Konto aktiviert wurde.",
     errFillAll:"Bitte füllen Sie alle Felder aus.", errEmailInvalid:"Ungültige E-Mail-Adresse.",
     errEmailExists:"Für diese E-Mail existiert bereits ein Konto.", errPasswordLen:"Das Passwort muss mindestens 6 Zeichen haben.",
-    errPasswordMismatch:"Die Passwörter stimmen nicht überein.", errSelfieRequired:"Bitte fügen Sie ein Selfie hinzu.",
+    errPasswordMismatch:"Die Passwörter stimmen nicht überein.", errSelfieRequired:"Bitte fügen Sie ein Selfie hinzu.", errSelfieNoFace:"Auf diesem Foto wurde kein Gesicht erkannt. Bitte machen Sie ein echtes Selfie Ihres Gesichts.", selfieChecking:"Selfie wird überprüft…",
     errIdRequired:"Bitte fügen Sie Vorder- und Rückseite Ihres Ausweises hinzu.",
     virTitle:"Sofort- oder SEPA-Überweisung", virTypeLabel:"Überweisungsart", virTypeInstant:"Sofort", virTypeSepa:"SEPA",
     virBenefLabel:"Empfänger", virBenefChoose:"Empfänger auswählen", virMontantLabel:"Betrag (€)",
@@ -538,6 +542,7 @@ const I18N = {
     profileAdminActionsTitle:"Administratoraktionen", profileClearHistoryBtn:"Verlauf dieses Kontos löschen",
     profileClearInfosBtn:"Angaben (KYC) dieses Kontos löschen", profileBlockBtn:"Konto sperren",
     profileUnblockBtn:"Konto entsperren", profileDeleteBtn:"Konto endgültig löschen",
+    profileResetPassBtn:"Passwort zurücksetzen", resetPassPromptTitle:"Neues Passwort für", resetPassPromptMsg:"Geben Sie das neue Passwort für dieses Mitglied ein (mindestens 6 Zeichen):", resetPassTooShort:"Passwort zu kurz (mindestens 6 Zeichen).", resetPassDone:"Neues Passwort festgelegt. Teilen Sie es dem Mitglied mit: ",
     transferDoneTitle:"Überweisung durchgeführt", transferDoneText:"Die Überweisung wurde dem Empfängerkonto gutgeschrieben.",
     txInitialDeposit:"Ersteinzahlung", txSentTo:"Überweisung gesendet — {name}", txReceivedFrom:"Überweisung erhalten — {name}",
     txReceived:"Überweisung erhalten", txTransferPrefix:"Überweisung", txTowards:"an", txRefundRefused:"Rückerstattung — Überweisung abgelehnt",
@@ -586,7 +591,7 @@ const I18N = {
     step6Text:"Dopo la verifica di REVTBANK riceverai un'email che ti dirà se il tuo account è stato attivato.",
     errFillAll:"Compila tutti i campi.", errEmailInvalid:"Indirizzo email non valido.",
     errEmailExists:"Esiste già un account con questa email.", errPasswordLen:"La password deve contenere almeno 6 caratteri.",
-    errPasswordMismatch:"Le password non corrispondono.", errSelfieRequired:"Aggiungi un selfie per continuare.",
+    errPasswordMismatch:"Le password non corrispondono.", errSelfieRequired:"Aggiungi un selfie per continuare.", errSelfieNoFace:"Nessun volto rilevato in questa foto. Rifai un vero selfie del tuo viso.", selfieChecking:"Verifica del selfie in corso…",
     errIdRequired:"Aggiungi fronte e retro del documento per continuare.",
     virTitle:"Bonifico istantaneo o SEPA", virTypeLabel:"Tipo di bonifico", virTypeInstant:"Istantaneo", virTypeSepa:"SEPA",
     virBenefLabel:"Beneficiario", virBenefChoose:"Scegli un beneficiario", virMontantLabel:"Importo (€)",
@@ -627,6 +632,7 @@ const I18N = {
     profileAdminActionsTitle:"Azioni amministratore", profileClearHistoryBtn:"Svuota la cronologia di questo account",
     profileClearInfosBtn:"Elimina le informazioni (KYC) di questo account", profileBlockBtn:"Blocca account",
     profileUnblockBtn:"Sblocca account", profileDeleteBtn:"Elimina definitivamente l'account",
+    profileResetPassBtn:"Reimposta password", resetPassPromptTitle:"Nuova password per", resetPassPromptMsg:"Inserisci la nuova password da comunicare a questo membro (minimo 6 caratteri):", resetPassTooShort:"Password troppo corta (minimo 6 caratteri).", resetPassDone:"Nuova password impostata. Comunicala al membro: ",
     transferDoneTitle:"Bonifico effettuato", transferDoneText:"Il bonifico è stato accreditato sul conto del beneficiario.",
     txInitialDeposit:"Deposito iniziale", txSentTo:"Bonifico inviato — {name}", txReceivedFrom:"Bonifico ricevuto — {name}",
     txReceived:"Bonifico ricevuto", txTransferPrefix:"Bonifico", txTowards:"verso", txRefundRefused:"Rimborso — bonifico rifiutato",
@@ -675,7 +681,7 @@ const I18N = {
     step6Text:"Após verificação da REVTBANK, você receberá um email informando se sua conta foi ativada.",
     errFillAll:"Preencha todos os campos.", errEmailInvalid:"Endereço de email inválido.",
     errEmailExists:"Já existe uma conta com este email.", errPasswordLen:"A senha deve ter pelo menos 6 caracteres.",
-    errPasswordMismatch:"As senhas não coincidem.", errSelfieRequired:"Adicione um selfie para continuar.",
+    errPasswordMismatch:"As senhas não coincidem.", errSelfieRequired:"Adicione um selfie para continuar.", errSelfieNoFace:"Nenhum rosto detectado nesta foto. Tire um selfie real do seu rosto.", selfieChecking:"Verificando o selfie…",
     errIdRequired:"Adicione a frente e o verso do seu documento para continuar.",
     virTitle:"Transferência instantânea ou SEPA", virTypeLabel:"Tipo de transferência", virTypeInstant:"Instantânea", virTypeSepa:"SEPA",
     virBenefLabel:"Beneficiário", virBenefChoose:"Escolha um beneficiário", virMontantLabel:"Valor (€)",
@@ -716,6 +722,7 @@ const I18N = {
     profileAdminActionsTitle:"Ações do administrador", profileClearHistoryBtn:"Limpar o histórico desta conta",
     profileClearInfosBtn:"Excluir as informações (KYC) desta conta", profileBlockBtn:"Bloquear conta",
     profileUnblockBtn:"Desbloquear conta", profileDeleteBtn:"Excluir conta permanentemente",
+    profileResetPassBtn:"Redefinir senha", resetPassPromptTitle:"Nova senha para", resetPassPromptMsg:"Digite a nova senha para dar a este membro (mínimo 6 caracteres):", resetPassTooShort:"Senha muito curta (mínimo 6 caracteres).", resetPassDone:"Nova senha definida. Informe-a ao membro: ",
     transferDoneTitle:"Transferência realizada", transferDoneText:"A transferência foi creditada na conta do beneficiário.",
     txInitialDeposit:"Depósito inicial", txSentTo:"Transferência enviada — {name}", txReceivedFrom:"Transferência recebida — {name}",
     txReceived:"Transferência recebida", txTransferPrefix:"Transferência", txTowards:"para", txRefundRefused:"Reembolso — transferência rejeitada",
@@ -832,6 +839,45 @@ function cardTier(user){
   return "standard";
 }
 function initials(u){ return ((u.prenom?.[0]||"")+(u.nom?.[0]||"")).toUpperCase(); }
+
+/* ===================== FACE DETECTION (selfie check) ===================== */
+const FACEAPI_MODEL_URL = "https://justadudewhohacks.github.io/face-api.js/models";
+let faceApiModelLoading = null;
+function loadImageEl(dataUrl){
+  return new Promise((resolve, reject)=>{
+    const img = new Image();
+    img.onload = ()=> resolve(img);
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
+}
+async function ensureFaceApiReady(){
+  if(typeof faceapi === "undefined") throw new Error("face-api.js non chargé");
+  if(!faceApiModelLoading){
+    faceApiModelLoading = faceapi.nets.tinyFaceDetector.loadFromUri(FACEAPI_MODEL_URL);
+  }
+  await faceApiModelLoading;
+}
+// Retourne true (visage détecté), false (aucun visage) ou null (vérification impossible sur cet appareil)
+async function detectFace(dataUrl){
+  try{
+    if('FaceDetector' in window){
+      const img = await loadImageEl(dataUrl);
+      const detector = new FaceDetector({fastMode:true, maxDetectedFaces:1});
+      const faces = await detector.detect(img);
+      return faces.length > 0;
+    }
+  }catch(e){ /* on tente le repli ci-dessous */ }
+  try{
+    await ensureFaceApiReady();
+    const img = await loadImageEl(dataUrl);
+    const detection = await faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions());
+    return !!detection;
+  }catch(e){
+    console.warn("Détection de visage indisponible sur cet appareil:", e);
+    return null;
+  }
+}
 
 function seedDB(){
   const adminId = 1;
@@ -1056,6 +1102,18 @@ async function adminClearInfos(id){
   u.telephone = ""; u.adresse = ""; u.codePostal = ""; u.departementNaissance = ""; u.villeNaissance = "";
   u.photo = null; u.idRecto = null; u.idVerso = null;
   await saveDB();
+  render();
+}
+
+async function adminResetPassword(id){
+  const u = findUser(id);
+  if(!u) return;
+  const newPass = prompt(`${t('resetPassPromptTitle')} ${u.prenom} ${u.nom}\n${t('resetPassPromptMsg')}`);
+  if(newPass === null) return;
+  if(newPass.length < 6){ alert(t('resetPassTooShort')); return; }
+  u.password = newPass;
+  await saveDB();
+  alert(t('resetPassDone') + newPass);
   render();
 }
 
@@ -1652,6 +1710,7 @@ function renderModal(){
         <button class="btn btn-danger btn-sm" style="width:100%; margin-bottom:8px;" data-clear-history="${target.id}">${t('profileClearHistoryBtn')}</button>
         <button class="btn btn-danger btn-sm" style="width:100%; margin-bottom:8px;" data-clear-infos="${target.id}">${t('profileClearInfosBtn')}</button>
         <button class="btn ${target.statut==='bloque'?'btn-primary':'btn-danger'} btn-sm" style="width:100%; margin-bottom:8px;" data-toggle-block="${target.id}">${target.statut==='bloque' ? t('profileUnblockBtn') : t('profileBlockBtn')}</button>
+        <button class="btn btn-ghost btn-sm" style="width:100%; margin-bottom:8px;" data-reset-pass="${target.id}">${t('profileResetPassBtn')}</button>
         <button class="btn btn-danger btn-sm" style="width:100%;" data-delete-account="${target.id}">${t('profileDeleteBtn')}</button>
       ` : ""}
       ${(target.id===u.id) ? `
@@ -1709,7 +1768,21 @@ function bindEvents(){
     });
   }
   const f_photo = document.getElementById("f_photo");
-  if(f_photo) f_photo.onchange = (e)=>{ const f=e.target.files[0]; if(f) compressImage(f, 500, 0.6, url=>{ state.regData.photo = url; render(); }); };
+  if(f_photo) f_photo.onchange = (e)=>{
+    const f=e.target.files[0]; if(!f) return;
+    compressImage(f, 500, 0.6, (url)=>{
+      setState({formErr: t('selfieChecking')});
+      detectFace(url).then(hasFace=>{
+        if(hasFace === false){
+          state.regData.photo = null;
+          setState({formErr: t('errSelfieNoFace')});
+        } else {
+          state.regData.photo = url;
+          setState({formErr: ""});
+        }
+      });
+    });
+  };
   const btnPickPhoto = document.getElementById("btnPickPhoto");
   if(btnPickPhoto) btnPickPhoto.onclick = ()=> f_photo.click();
   const photoFrame = document.getElementById("photoFrame");
@@ -1796,6 +1869,7 @@ function bindEvents(){
   document.querySelectorAll("[data-clear-history]").forEach(b=> b.onclick = ()=>{ if(confirm(t('confirmClearHistory'))) adminClearHistory(parseInt(b.dataset.clearHistory)); });
   document.querySelectorAll("[data-clear-infos]").forEach(b=> b.onclick = ()=>{ if(confirm(t('confirmClearInfos'))) adminClearInfos(parseInt(b.dataset.clearInfos)); });
   document.querySelectorAll("[data-toggle-block]").forEach(b=> b.onclick = ()=> adminToggleBlock(parseInt(b.dataset.toggleBlock)));
+  document.querySelectorAll("[data-reset-pass]").forEach(b=> b.onclick = ()=> adminResetPassword(parseInt(b.dataset.resetPass)));
   document.querySelectorAll("[data-delete-account]").forEach(b=> b.onclick = ()=>{ if(confirm(t('confirmDeleteAccount'))) adminDeleteAccount(parseInt(b.dataset.deleteAccount)); });
   document.querySelectorAll("[data-exec-dem]").forEach(b=> b.onclick = ()=> adminResolveDemande(parseInt(b.dataset.execDem), true));
   document.querySelectorAll("[data-reject-dem]").forEach(b=> b.onclick = ()=> adminResolveDemande(parseInt(b.dataset.rejectDem), false));
