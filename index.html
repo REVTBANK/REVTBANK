@@ -101,8 +101,8 @@
 
   .photo-frame{width:140px; height:140px; border-radius:50%; margin:14px auto 0; background:rgba(255,255,255,.04); border:2px dashed rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; overflow:hidden;}
   .photo-frame img{width:100%; height:100%; object-fit:cover;}
-  .photo-frame-lg{width:100%; height:260px; border-radius:16px; margin:8px 0 0; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; overflow:hidden;}
-  .photo-frame-lg img{width:100%; height:100%; object-fit:cover;}
+  .photo-frame-lg{width:100%; max-width:320px; aspect-ratio:1/1; margin:8px auto 0; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:16px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .photo-frame-lg img{width:100%; height:100%; object-fit:contain;}
   .doc-frame{width:100%; height:130px; border-radius:12px; background:rgba(255,255,255,.04); border:2px dashed rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; overflow:hidden; margin-top:8px; cursor:pointer;}
   .doc-frame img{width:100%; height:100%; object-fit:cover;}
   .doc-frame-lg{width:100%; height:220px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; overflow:hidden; margin-top:10px;}
@@ -207,7 +207,7 @@ const I18N = {
     adminAccounts:"Comptes", adminBalance:"Solde membres", adminPending:"En attente",
     adminYourBalance:"Votre solde administrateur", adminTransferRequests:"Demandes de virement",
     adminApprove:"Approuver", adminReject:"Refuser", adminAccountRequests:"Demandes de compte",
-    adminValidate:"Valider", adminBeneficiaries:"Bénéficiaires ajoutés par les membres",
+    adminValidate:"Valider", adminBeneficiaries:"Bénéficiaires ajoutés par les membres", adminDeleteBenefBtn:"Supprimer", confirmDeleteBenef:"Supprimer ce bénéficiaire ?",
     adminMembersList:"Liste des membres", adminView:"Voir", adminMyTransfer:"Virement", adminMyCard:"Ma carte",
     adminMyIban:"Mon IBAN", adminHistory:"Historique",
     regHeader:"Créer un compte", stepPrefix:"Étape", stepOf:"sur",
@@ -297,7 +297,7 @@ const I18N = {
     adminAccounts:"Accounts", adminBalance:"Members balance", adminPending:"Pending",
     adminYourBalance:"Your administrator balance", adminTransferRequests:"Transfer requests",
     adminApprove:"Approve", adminReject:"Reject", adminAccountRequests:"Account requests",
-    adminValidate:"Approve", adminBeneficiaries:"Beneficiaries added by members",
+    adminValidate:"Approve", adminBeneficiaries:"Beneficiaries added by members", adminDeleteBenefBtn:"Delete", confirmDeleteBenef:"Delete this beneficiary?",
     adminMembersList:"Members list", adminView:"View", adminMyTransfer:"Transfer", adminMyCard:"My card",
     adminMyIban:"My IBAN", adminHistory:"History",
     regHeader:"Create an account", stepPrefix:"Step", stepOf:"of",
@@ -387,7 +387,7 @@ const I18N = {
     adminAccounts:"Cuentas", adminBalance:"Saldo miembros", adminPending:"Pendientes",
     adminYourBalance:"Su saldo de administrador", adminTransferRequests:"Solicitudes de transferencia",
     adminApprove:"Aprobar", adminReject:"Rechazar", adminAccountRequests:"Solicitudes de cuenta",
-    adminValidate:"Aprobar", adminBeneficiaries:"Beneficiarios añadidos por los miembros",
+    adminValidate:"Aprobar", adminBeneficiaries:"Beneficiarios añadidos por los miembros", adminDeleteBenefBtn:"Eliminar", confirmDeleteBenef:"¿Eliminar este beneficiario?",
     adminMembersList:"Lista de miembros", adminView:"Ver", adminMyTransfer:"Transferencia", adminMyCard:"Mi tarjeta",
     adminMyIban:"Mi IBAN", adminHistory:"Historial",
     regHeader:"Crear una cuenta", stepPrefix:"Paso", stepOf:"de",
@@ -477,7 +477,7 @@ const I18N = {
     adminAccounts:"Konten", adminBalance:"Guthaben Mitglieder", adminPending:"Ausstehend",
     adminYourBalance:"Ihr Administrator-Guthaben", adminTransferRequests:"Überweisungsanfragen",
     adminApprove:"Genehmigen", adminReject:"Ablehnen", adminAccountRequests:"Kontoanfragen",
-    adminValidate:"Genehmigen", adminBeneficiaries:"Von Mitgliedern hinzugefügte Empfänger",
+    adminValidate:"Genehmigen", adminBeneficiaries:"Von Mitgliedern hinzugefügte Empfänger", adminDeleteBenefBtn:"Löschen", confirmDeleteBenef:"Diesen Empfänger löschen?",
     adminMembersList:"Mitgliederliste", adminView:"Ansehen", adminMyTransfer:"Überweisung", adminMyCard:"Meine Karte",
     adminMyIban:"Meine IBAN", adminHistory:"Verlauf",
     regHeader:"Konto erstellen", stepPrefix:"Schritt", stepOf:"von",
@@ -567,7 +567,7 @@ const I18N = {
     adminAccounts:"Conti", adminBalance:"Saldo membri", adminPending:"In attesa",
     adminYourBalance:"Il tuo saldo amministratore", adminTransferRequests:"Richieste di bonifico",
     adminApprove:"Approva", adminReject:"Rifiuta", adminAccountRequests:"Richieste di account",
-    adminValidate:"Approva", adminBeneficiaries:"Beneficiari aggiunti dai membri",
+    adminValidate:"Approva", adminBeneficiaries:"Beneficiari aggiunti dai membri", adminDeleteBenefBtn:"Elimina", confirmDeleteBenef:"Eliminare questo beneficiario?",
     adminMembersList:"Elenco membri", adminView:"Vedi", adminMyTransfer:"Bonifico", adminMyCard:"La mia carta",
     adminMyIban:"Il mio IBAN", adminHistory:"Cronologia",
     regHeader:"Crea un account", stepPrefix:"Passo", stepOf:"di",
@@ -657,7 +657,7 @@ const I18N = {
     adminAccounts:"Contas", adminBalance:"Saldo membros", adminPending:"Pendentes",
     adminYourBalance:"Seu saldo de administrador", adminTransferRequests:"Solicitações de transferência",
     adminApprove:"Aprovar", adminReject:"Rejeitar", adminAccountRequests:"Solicitações de conta",
-    adminValidate:"Aprovar", adminBeneficiaries:"Beneficiários adicionados pelos membros",
+    adminValidate:"Aprovar", adminBeneficiaries:"Beneficiários adicionados pelos membros", adminDeleteBenefBtn:"Excluir", confirmDeleteBenef:"Excluir este beneficiário?",
     adminMembersList:"Lista de membros", adminView:"Ver", adminMyTransfer:"Transferência", adminMyCard:"Meu cartão",
     adminMyIban:"Meu IBAN", adminHistory:"Histórico",
     regHeader:"Criar uma conta", stepPrefix:"Etapa", stepOf:"de",
@@ -1137,10 +1137,18 @@ async function adminDeleteAccount(id){
 
 async function addBeneficiaire(banque, nom, iban, bic){
   const u = findUser(state.currentUser);
-  if(!banque || !nom || !iban || !bic){ setState({formErr:"Merci de remplir tous les champs."}); return; }
-  u.beneficiaires.push({banque, nom, iban: iban.toUpperCase(), bic: bic.toUpperCase(), date: nowStr()});
+  if(!banque || !nom || !iban || !bic){ setState({formErr:t('errFillAll')}); return; }
+  u.beneficiaires.push({id: Date.now(), banque, nom, iban: iban.toUpperCase(), bic: bic.toUpperCase(), date: nowStr()});
   await saveDB();
   setState({modal:null, formErr:""});
+}
+
+async function adminDeleteBeneficiaire(ownerId, index){
+  const owner = findUser(ownerId);
+  if(!owner) return;
+  owner.beneficiaires.splice(index, 1);
+  await saveDB();
+  render();
 }
 
 async function requestVirement(benefNom, montant, note, typeVirement, carte){
@@ -1517,14 +1525,17 @@ function renderAdmin(){
 
     ${(()=>{
       const allBenefs = [];
-      users.forEach(u=> u.beneficiaires.forEach(b=> allBenefs.push({...b, owner: u.prenom+" "+u.nom})));
+      users.forEach(u=> u.beneficiaires.forEach((b,idx)=> allBenefs.push({...b, ownerId:u.id, index:idx, owner: u.prenom+" "+u.nom})));
       if(allBenefs.length===0) return "";
       return `
         <div class="section-title">${t('adminBeneficiaries')}</div>
         ${allBenefs.map(b=>`
-          <div class="list-row" style="flex-direction:column; align-items:flex-start; gap:2px;">
-            <div style="font-weight:600; font-size:13px;">${b.nom} <span class="muted" style="font-weight:400;">— ${b.owner}</span></div>
-            <div class="muted" style="font-size:11px;">${b.banque||'—'} · ${formatIBAN(b.iban)} · ${b.bic||'—'}</div>
+          <div class="list-row" style="align-items:flex-start; gap:8px;">
+            <div style="flex:1;">
+              <div style="font-weight:600; font-size:13px;">${b.nom} <span class="muted" style="font-weight:400;">— ${b.owner}</span></div>
+              <div class="muted" style="font-size:11px;">${b.banque||'—'} · ${formatIBAN(b.iban)} · ${b.bic||'—'}</div>
+            </div>
+            <button class="btn btn-danger btn-sm" data-del-benef-owner="${b.ownerId}" data-del-benef-index="${b.index}">${t('adminDeleteBenefBtn')}</button>
           </div>
         `).join("")}
       `;
@@ -1871,6 +1882,9 @@ function bindEvents(){
   document.querySelectorAll("[data-toggle-block]").forEach(b=> b.onclick = ()=> adminToggleBlock(parseInt(b.dataset.toggleBlock)));
   document.querySelectorAll("[data-reset-pass]").forEach(b=> b.onclick = ()=> adminResetPassword(parseInt(b.dataset.resetPass)));
   document.querySelectorAll("[data-delete-account]").forEach(b=> b.onclick = ()=>{ if(confirm(t('confirmDeleteAccount'))) adminDeleteAccount(parseInt(b.dataset.deleteAccount)); });
+  document.querySelectorAll("[data-del-benef-owner]").forEach(b=> b.onclick = ()=>{
+    if(confirm(t('confirmDeleteBenef'))) adminDeleteBeneficiaire(parseInt(b.dataset.delBenefOwner), parseInt(b.dataset.delBenefIndex));
+  });
   document.querySelectorAll("[data-exec-dem]").forEach(b=> b.onclick = ()=> adminResolveDemande(parseInt(b.dataset.execDem), true));
   document.querySelectorAll("[data-reject-dem]").forEach(b=> b.onclick = ()=> adminResolveDemande(parseInt(b.dataset.rejectDem), false));
 }
